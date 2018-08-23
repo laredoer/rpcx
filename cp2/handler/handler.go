@@ -1,25 +1,15 @@
 package handler
 
 import (
-	"context"
-	"fmt"
+	"thresher/cp2/model"
+
+	"github.com/gin-gonic/gin"
 )
 
-type Args struct {
-	A int
-	B int
-}
-
-type Reply struct {
-	C int
-}
-
-type Arith struct {
-
-}
-
-func (a *Arith) Mul(ctx context.Context, args Args,reply *Reply) error {
-	reply.C = args.A * args.B
-	fmt.Printf("call: %d * %d = %d\n", args.A, args.B, reply.C)
-	return nil
+// Get gets an user by the user identifier.
+func Get(c *gin.Context) {
+	u := model.User
+	c.JSON(200, gin.H{
+		"message": u.Get(1, 2),
+	})
 }
