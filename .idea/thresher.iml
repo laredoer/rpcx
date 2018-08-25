@@ -5,6 +5,7 @@
       <option name="customFlags">
         <array>
           <option value="etcd" />
+          <option value="consul" />
         </array>
       </option>
     </buildTags>

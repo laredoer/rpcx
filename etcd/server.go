@@ -7,8 +7,8 @@ import (
 	"log"
 	"time"
 
-	metrics "github.com/rcrowley/go-metrics"
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
+	"github.com/rcrowley/go-metrics"
+	"github.com/rpcx-ecosystem/rpcx-examples3"
 	"github.com/smallnest/rpcx/server"
 	"github.com/smallnest/rpcx/serverplugin"
 )
@@ -22,7 +22,7 @@ var (
 type Arith2 int
 
 func (t *Arith2) Mul(ctx context.Context, args *example.Args, reply *example.Reply) error {
-	reply.C = args.A * args.B * 100
+	reply.C = args.A * args.B
 	return nil
 }
 

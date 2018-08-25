@@ -12,7 +12,6 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/ping", handler.Get)
-	r.GET("/hello")
 	r.Run() // 在 0.0.0.0:8080 上监听并服务
 
 }
