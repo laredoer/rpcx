@@ -3,7 +3,6 @@ package model
 import (
 	"github.com/smallnest/rpcx/client"
 	"flag"
-	"log"
 	"github.com/gin-gonic/gin"
 )
 type Args struct {
@@ -33,12 +32,12 @@ func init() {
 
 }
 
-func (t *IArith2) Get(g *gin.Context,a *Args,r *Reply) (rep *Reply)  {
-	err := t.xclient.Call(g,"Mul",a,r)
+func (t *IArith2) Get(g *gin.Context,a *Args,r *Reply) (rep *Reply,err error)  {
+	err = t.xclient.Call(g,"Mul",a,r)
 	if err != nil {
-		log.Print(err)
+		return nil,err
 	}
-	return r
+	return r,nil
 }
 
 
