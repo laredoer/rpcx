@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	etcdAddr = flag.String("etcdAddr", "localhost:2379", "etcd address")
+	etcdAddr = flag.String("etcdAddr", "132.232.109.253:2379", "etcd address")
 	basePath = flag.String("base", "/rpcx", "prefix path")
 	xclient  client.XClient
 )
@@ -41,4 +41,7 @@ func Get(g *gin.Context) {
 		log.Printf("failed to call: %v\n", err)
 	}
 	log.Printf("%d * %d = %d", args.A, args.B, reply.C)
+	g.JSON(200,gin.H{
+		"data":reply.C,
+	})
 }

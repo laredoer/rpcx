@@ -14,8 +14,9 @@ import (
 )
 
 var (
-	addr     = flag.String("addr", "localhost:8973", "server address")
-	etcdAddr = flag.String("etcdAddr", "localhost:2379", "etcd address")
+	addr     = flag.String("addr", "132.232.109.253:8973", "server address") // 服务调用地址
+	addr2 = flag.String("addr2","0.0.0.0:8973","server addr") // 服务运行地址
+	etcdAddr = flag.String("etcdAddr", "132.232.109.253:2379", "etcd address")
 	basePath = flag.String("base", "/rpcx", "prefix path")
 )
 
@@ -33,7 +34,7 @@ func main() {
 	addRegistryPlugin(s)
 
 	s.RegisterName("Arith", new(Arith2), "")
-	s.Serve("tcp", *addr)
+	s.Serve("tcp", *addr2)
 }
 
 func addRegistryPlugin(s *server.Server) {
@@ -43,7 +44,7 @@ func addRegistryPlugin(s *server.Server) {
 		EtcdServers:    []string{*etcdAddr},
 		BasePath:       *basePath,
 		Metrics:        metrics.NewRegistry(),
-		UpdateInterval: time.Minute,
+		UpdateInterval: time.Second * 10,
 	}
 
 	err := r.Start()
