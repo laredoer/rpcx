@@ -14,8 +14,9 @@ import (
 )
 
 var (
-	addr       = flag.String("addr", "localhost:8972", "server address")
-	consulAddr = flag.String("consulAddr", "132.232.109.253:8500", "consul address")
+	addr       = flag.String("addr", "132.232.109.253:8972", "server address")
+	addr2       = flag.String("addr2", "0.0.0.0:8972", "server address")
+	consulAddr = flag.String("consulAddr", "127.0.0.1:8500", "consul address")
 	basePath   = flag.String("base", "/rpcx", "prefix path")
 )
 
@@ -26,7 +27,7 @@ func main() {
 	addRegistryPlugin(s)
 
 	s.RegisterName("Arith", new(example.Arith), "")
-	err := s.Serve("tcp", *addr)
+	err := s.Serve("tcp", *addr2)
 	if err != nil {
 		fmt.Println(err)
 	}
