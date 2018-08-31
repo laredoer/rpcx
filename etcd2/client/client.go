@@ -9,18 +9,15 @@ import (
 )
 
 var (
-	etcdAddr = flag.String("etcdAddr", "localhost:2379", "etcd address")
+	etcdAddr = flag.String("etcdAddr", "132.232.109.253:2379", "etcd address")
 	basePath = flag.String("base", "/rpcx", "prefix path")
 	xclient client.XClient
 )
 
 func init() {
 	flag.Parse()
-
 	d := client.NewEtcdDiscovery(*basePath, "Arith", []string{*etcdAddr}, nil)
 	xclient = client.NewXClient("Arith", client.Failover, client.RoundRobin, d, client.DefaultOption)
-
-
 }
 
 
