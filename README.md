@@ -27,3 +27,9 @@ rpcx 的优势
 6. 丰富功能
 
     > 配合gin使用，可扩展很多功能
+
+实现一个有趣视频的微服务
+
+####服务划分
+
+![服务划分](https://raw.githubusercontent.com/wule61/rpcx/master/img/server.png)
