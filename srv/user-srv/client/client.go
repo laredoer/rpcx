@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/smallnest/rpcx/client"
 	"log"
+	"net/http"
 	"thresher/srv/user-srv/handler"
 )
 
@@ -33,16 +34,21 @@ func main() {
 }
 
 func Get(g *gin.Context)  {
-	args := &handler.UserRequest{
-		UserName: "admin",
-		PassWord: "admin",
+	var userLogin handler.UserRequest
+	// 这个将通过 content-type 头去推断绑定器使用哪个依赖。
+	if err := g.ShouldBind(&userLogin); err != nil {
+		g.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 	reply := &handler.Response{}
-	err := xclient.Call(g, "Login", args, reply)
-	if err != nil {
+	err := xclient.Call(g, "Login", &userLogin, reply)
+	if err != nil || reply.Data == nil {
+		g.JSON(http.StatusNotAcceptable,gin.H{
+			"data":reply,
+		})
+		return
 		log.Printf("failed to call: %v\n", err)
 	}
 	g.JSON(200,gin.H{
-		"data":reply.Data,
+		"data":reply,
 	})
 }

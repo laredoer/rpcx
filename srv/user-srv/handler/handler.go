@@ -26,8 +26,8 @@ type Profile struct {
 // 定义请求结构体
 type UserRequest struct {
 	UserId int64 	`form:"user_id" json:"user_id"`
-	UserName string `form:"user_name" json:"user_name"`
-	PassWord string `form:"pass_word" json:"pass_word"`
+	UserName string `form:"user_name" json:"user_name" binding:"required"`
+	PassWord string `form:"pass_word" json:"pass_word" binding:"required"`
 }
 
 //Response 结构体
