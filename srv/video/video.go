@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	addr  = flag.String("addr","localhost:8973","server addr")
+	addr  = flag.String("addr","localhost:8972","server addr")
 	consulAddr = flag.String("consulAddr","132.232.109.253:8500","consul addr")
 	basePath = flag.String("basePath","/qu_video","prefix path")
 )
@@ -19,13 +19,13 @@ func main() {
 	flag.Parse()
 	s := server.NewServer()
 	addRegistryPlugin(s)
-	s.RegisterName("video",new(),"")
+	s.RegisterName("video",new(Video),"")
 	err := s.Serve("tcp",*addr)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
-
+// 服务注册
 func addRegistryPlugin(s *server.Server) {
 	r := &serverplugin.ConsulRegisterPlugin{
 		ServiceAddress: "tcp@" + *addr,
